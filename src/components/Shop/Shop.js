@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
@@ -9,11 +11,11 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
 
-    useEffect( () => {
+    useEffect(() => {
         fetch('products.json')
             .then(res => res.json())
-            .then(data => console.log(data));
-    } , []);
+            .then(data => setProducts(data));
+    }, []);
 
     // useEffect To Show if any previous data exists in localStorage.
     useEffect(() => {
@@ -22,10 +24,10 @@ const Shop = () => {
         const savedCart = [];
 
         // Finding the Element via id from storedCart Object .
-        for(const id in storedCart){
+        for (const id in storedCart) {
             const addedProduct = products.find(product => product.id === id);
             // If added Product Exist.
-            if(addedProduct){
+            if (addedProduct) {
                 // Getting the quantity/value from storedCart . 
                 const quantity = storedCart[id];
                 addedProduct.quantity = quantity;
@@ -35,24 +37,24 @@ const Shop = () => {
         setCart(savedCart);
 
         // Dependency Injection . If you can't depend on product then you will get an empty product list .Cause the Calls are async and independent so useEffect is called before loading the data and if you dependent on products for every single change useEffect will call frequently.
-    } , [products]);
+    }, [products]);
 
-    const addToCart = (selectedProduct) =>{
+    const addToCart = (selectedProduct) => {
         let newCart = [];
         // Searching is selectedProduct exists in Cart.
         const exist = cart.find(product => product.id === selectedProduct.id);
         // If not Exists.
-        if(!exist){
+        if (!exist) {
             selectedProduct.quantity = 1;
             newCart = [...cart, selectedProduct];
-        }else{
+        } else {
             // If Exists. First Filter all the products without selectedProduct.
             const rest = cart.filter(product => product.id !== selectedProduct.id);
             // Increasing Quantity .
             exist.quantity = exist.quantity + 1;
-            newCart = [...rest , exist];
+            newCart = [...rest, exist];
         }
-        
+
         setCart(newCart);
         addToDb(selectedProduct.id);
 
@@ -63,7 +65,7 @@ const Shop = () => {
     let totalPrice = 0;
     let shippingPrice = 0;
     let productQuantity = 0;
-    for(const product of cart){
+    for (const product of cart) {
         productQuantity = productQuantity + product.quantity;
         totalPrice = totalPrice + (product.price * product.quantity);
         shippingPrice = shippingPrice + product.shipping;
@@ -73,20 +75,32 @@ const Shop = () => {
 
 
     return (
-        <div className='shop-container'>
-            <div className="product-container">
-                {
-                    products.map(product => <Product
-                    key = {product.id}
-                    product = {product}
-                    addToCart = {addToCart}
-                    ></Product>)
-                }
+        <>
+
+            <div className='shop-container'>
+
+                <div >
+                    <div className='header'>
+                        <FontAwesomeIcon style={{ fontSize: '70' }} icon={faDumbbell}></FontAwesomeIcon>
+                        <h4 style={{ fontSize: '40px', marginLeft: '20px' }}>Stay Fit</h4>
+                    </div>
+                    <h3 style={{marginLeft : '50px'}}>Select today's exercise.</h3>
+
+                    <div className="product-container">
+                        {
+                            products.map(product => <Product
+                                key={product.id}
+                                product={product}
+                                addToCart={addToCart}
+                            ></Product>)
+                        }
+                    </div>
+                </div>
+                <div className="cart-container">
+                    <Cart cart={cart} price={totalPrice} quantity={productQuantity} shipping={shippingPrice} tax={tax} grandTotal={grandTotal}></Cart>
+                </div>
             </div>
-            <div className="cart-container">
-                <Cart cart = {cart} price = {totalPrice} quantity = {productQuantity} shipping = {shippingPrice} tax = {tax} grandTotal = {grandTotal}></Cart>
-            </div>
-        </div>
+        </>
     );
 };
 

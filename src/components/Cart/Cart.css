@@ -3,3 +3,9 @@
     top: 0;
     margin: 50px 25px;
 }
+
+.my-info{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

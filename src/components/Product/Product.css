@@ -1,15 +1,15 @@
 .product-cart{
-    width: 300px;
-    height: 510px;
+    width: 280px;
+    height: 350px;
     border: 1px solid #95A0A7;
     border-radius: 6px;
     position: relative;
 }
 
 .product-cart img {
-    width: 286px;
+    width: 266px;
     border-radius: 6px;
-    height: 270px;
+    height: 160px;
     margin: 7px;
 
 }
@@ -36,8 +36,9 @@
     width: 100%;
     border-radius: 0 0 6px 6px;
     padding: 3px;
-    background-color: bisque;
+    background-color: rgb(61, 61, 255);
     border: none;
+    color: aliceblue;
     position: absolute;
     bottom: 0;
     display: flex;
@@ -46,7 +47,7 @@
 }
 
 .cart-btn:hover {
-    background-color: orange;
+    background-color: orangered;
     cursor: pointer;
 }
 
