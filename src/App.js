@@ -1,13 +1,14 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumbbell, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import Header from './components/Header/Header';
+import Shop from './components/Shop/Shop';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Antu</h1>
-      <FontAwesomeIcon icon = {faDumbbell}></FontAwesomeIcon>
+    <div >
+      <Header></Header>
+      <Shop></Shop>
+      
     </div>
   );
 }
