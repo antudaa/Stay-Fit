@@ -39,39 +39,35 @@ const Shop = () => {
         // Dependency Injection . If you can't depend on product then you will get an empty product list .Cause the Calls are async and independent so useEffect is called before loading the data and if you dependent on products for every single change useEffect will call frequently.
     }, [exercise]);
 
+
     const addToCart = (selectedProduct) => {
         let newCart = [];
         // Searching is selectedProduct exists in Cart.
         const exist = cart.find(product => product.id === selectedProduct.id);
         // If not Exists.
         if (!exist) {
-            selectedProduct.time = selectedProduct;
+            selectedProduct.quantity = 1;
             newCart = [...cart, selectedProduct];
         } else {
             // If Exists. First Filter all the products without selectedProduct.
             const rest = cart.filter(product => product.id !== selectedProduct.id);
             // Increasing Quantity .
-            exist.time = exist.time + 1;
+            exist.quantity = exist.id;
             newCart = [...rest, exist];
         }
 
         setCart(newCart);
-        addToDb(selectedProduct.id);
+        addToDb(selectedProduct);
+
 
     }
-
 
     // Finding The Infos.
-    let totalPrice = 0;
-    let shippingPrice = 0;
-    let time = 0;
-    for (const product of cart) {
-        time = time + product.time;
-        totalPrice = totalPrice + (product.price * product.quantity);
-        shippingPrice = shippingPrice + product.shipping;
-    }
-    let tax = (totalPrice * 0.1).toFixed(2);
-    let grandTotal = totalPrice + shippingPrice + parseFloat(tax);
+    let totalTime = 0;
+        for (const time of cart) {
+            totalTime = totalTime + time.time;
+            console.log(totalTime)
+        }    
 
 
     return (
@@ -84,7 +80,7 @@ const Shop = () => {
                         <FontAwesomeIcon style={{ fontSize: '70' }} icon={faDumbbell}></FontAwesomeIcon>
                         <h4 style={{ fontSize: '40px', marginLeft: '20px' }}>Stay Fit</h4>
                     </div>
-                    <h3 style={{marginLeft : '50px'}}>Select today's exercise.</h3>
+                    <h3 style={{ marginLeft: '50px' }}>Select today's exercise.</h3>
 
                     <div className="product-container">
                         {
@@ -97,7 +93,7 @@ const Shop = () => {
                     </div>
                 </div>
                 <div className="cart-container">
-                    <Cart cart={cart} price={totalPrice} time={time} shipping={shippingPrice} tax={tax} grandTotal={grandTotal}></Cart>
+                    <Cart cart={cart} time={totalTime}></Cart>
                 </div>
             </div>
         </>
