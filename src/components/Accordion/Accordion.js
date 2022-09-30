@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Accordian = () => {
+const Accordion = () => {
     return (
         <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto' , marginBottom:'100px'}}>
             <div className="accordion" id="accordionExample">
@@ -50,4 +50,4 @@ const Accordian = () => {
     );
 };
 
-export default Accordian;
+export default Accordion;

@@ -4,8 +4,9 @@ import antu from '../../images/3d21b147-39d3-4acc-9f0d-efc2e335de62.jpg'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Cart.css';
+import { addToDb, getSetTime } from '../../utilities/fakedb';
 
 
 // The Props Cart is a Object .
@@ -13,18 +14,28 @@ const Cart = ({time }) => {
 
     const notify = () => toast("You have done for today...");
 
+    const [breakTime, setBreakTime] = useState([0]);
+
+    const newTime = data => {
+        setBreakTime(data);
+        addToDb(data);
+    }
+
+    const exerciseBreakTime = getSetTime();
+    console.log(exerciseBreakTime)
+
     return (
         <div className='cart'>
             <div className='flex'>
                 <img style={{ width: '50px', height: '50px', borderRadius: '50%' }} src={antu} alt="" />
                 <div>
                     <h3>Antu Das.</h3>
-                    <p><FontAwesomeIcon icon={faLocation}></FontAwesomeIcon>Ctg, Bangladesh.</p>
+                    <p><FontAwesomeIcon icon={faLocation} style={{marginRight:'10px'}}></FontAwesomeIcon>Ctg, Bangladesh.</p>
                 </div>
             </div>
             <div className='flex bg'>
                 <div>
-                    <h3>75 <small>kg</small></h3>
+                    <h3>60 <small>kg</small></h3>
                     <p>Weight</p>
                 </div>
                 <div>
@@ -38,11 +49,11 @@ const Cart = ({time }) => {
             </div>
             <h3>Add A Break</h3>
             <div className='flex-time'>
-                <button className='btn-time'>10<small>s</small></button>
-                <button className='btn-time'>20<small>s</small></button>
-                <button className='btn-time'>30<small>s</small></button>
-                <button className='btn-time'>40<small>s</small></button>
-                <button className='btn-time'>50<small>s</small></button>
+                <button onClick={() => newTime(10)}  className='btn-time'>10<small>s</small></button>
+                <button onClick={() => newTime(20)}  className='btn-time'>20<small>s</small></button>
+                <button onClick={() => newTime(30)}  className='btn-time'>30<small>s</small></button>
+                <button onClick={() => newTime(40)}  className='btn-time'>40<small>s</small></button>
+                <button onClick={() => newTime(50)}  className='btn-time'>50<small>s</small></button>
             </div>
 
             <div>
@@ -54,7 +65,7 @@ const Cart = ({time }) => {
                 </div>
                 <div className='flex-exercise'>
                     <h4>Break Time : </h4>
-                    <h6>00 <small>sec</small></h6>
+                    <h6>{exerciseBreakTime}<small>sec</small></h6>
                 </div>
             </div>
 
