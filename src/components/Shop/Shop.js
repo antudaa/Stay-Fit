@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
-import { addToDb, getStoredCart } from '../../utilities/fakedb';
+import { addToDb, getStoredCart, setTime } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
@@ -55,19 +55,36 @@ const Shop = () => {
             exist.quantity = exist.id;
             newCart = [...rest, exist];
         }
-
+        console.log(setTime());
         setCart(newCart);
         addToDb(selectedProduct);
+        
 
 
     }
 
+    
+
     // Finding The Infos.
+
     let totalTime = 0;
-        for (const time of cart) {
-            totalTime = totalTime + time.time;
-            console.log(totalTime)
-        }    
+    for (const time of cart) {
+        console.log(cart);
+        totalTime = totalTime + time.time;
+        
+    }    
+
+
+    let totalPrice = 0;
+    let shippingPrice = 0;
+    let productQuantity = 0;
+    for(const product of cart){
+        productQuantity = productQuantity + product.quantity;
+        totalPrice = totalPrice + (product.price * product.quantity);
+        shippingPrice = shippingPrice + product.shipping;
+    }
+    let tax = (totalPrice * 0.1).toFixed(2);
+    let grandTotal = totalPrice + shippingPrice + parseFloat(tax);
 
 
     return (
