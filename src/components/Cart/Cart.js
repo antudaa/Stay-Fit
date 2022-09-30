@@ -7,7 +7,7 @@ import './Cart.css';
 
 
 // The Props Cart is a Object .
-const Cart = ({ cart, price, shipping, tax, grandTotal, quantity }) => {
+const Cart = ({time }) => {
     return (
         <div className='cart'>
             <div className='flex'>
@@ -45,7 +45,7 @@ const Cart = ({ cart, price, shipping, tax, grandTotal, quantity }) => {
 
                 <div className='flex-exercise'>
                     <h4>Exercise Time : </h4>
-                    <h6>00 <small>sec</small></h6>
+                    <h6>{time} <small>sec</small></h6>
                 </div>
                 <div className='flex-exercise'>
                     <h4>Break Time : </h4>
@@ -55,6 +55,13 @@ const Cart = ({ cart, price, shipping, tax, grandTotal, quantity }) => {
 
             <button className='complete-btn'>Activity Completed...</button>
 
+            {/* <h1>Cart Items</h1>
+            <p>Selected Items : {cart.length}</p>
+            <p>Product Quantity : {quantity}</p>
+            <p>Total Price : ${price}</p>
+            <p>Shipping Charge : ${shipping}</p>
+            <p>Tax : ${tax}</p>
+            <h3>Grand Total : ${grandTotal}</h3> */}
         </div>
     );
 };

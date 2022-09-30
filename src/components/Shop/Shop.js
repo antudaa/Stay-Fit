@@ -8,13 +8,13 @@ import './Shop.css';
 
 const Shop = () => {
 
-    const [products, setProducts] = useState([]);
+    const [exercise, setExercise] = useState([]);
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
         fetch('products.json')
             .then(res => res.json())
-            .then(data => setProducts(data));
+            .then(data => setExercise(data));
     }, []);
 
     // useEffect To Show if any previous data exists in localStorage.
@@ -25,19 +25,19 @@ const Shop = () => {
 
         // Finding the Element via id from storedCart Object .
         for (const id in storedCart) {
-            const addedProduct = products.find(product => product.id === id);
+            const addedProduct = exercise.find(product => product.id === id);
             // If added Product Exist.
             if (addedProduct) {
                 // Getting the quantity/value from storedCart . 
-                const quantity = storedCart[id];
-                addedProduct.quantity = quantity;
+                const time = storedCart[id];
+                addedProduct.time = time;
                 savedCart.push(addedProduct);
             }
         }
         setCart(savedCart);
 
         // Dependency Injection . If you can't depend on product then you will get an empty product list .Cause the Calls are async and independent so useEffect is called before loading the data and if you dependent on products for every single change useEffect will call frequently.
-    }, [products]);
+    }, [exercise]);
 
     const addToCart = (selectedProduct) => {
         let newCart = [];
@@ -45,13 +45,13 @@ const Shop = () => {
         const exist = cart.find(product => product.id === selectedProduct.id);
         // If not Exists.
         if (!exist) {
-            selectedProduct.quantity = 1;
+            selectedProduct.time = selectedProduct;
             newCart = [...cart, selectedProduct];
         } else {
             // If Exists. First Filter all the products without selectedProduct.
             const rest = cart.filter(product => product.id !== selectedProduct.id);
             // Increasing Quantity .
-            exist.quantity = exist.quantity + 1;
+            exist.time = exist.time + 1;
             newCart = [...rest, exist];
         }
 
@@ -64,9 +64,9 @@ const Shop = () => {
     // Finding The Infos.
     let totalPrice = 0;
     let shippingPrice = 0;
-    let productQuantity = 0;
+    let time = 0;
     for (const product of cart) {
-        productQuantity = productQuantity + product.quantity;
+        time = time + product.time;
         totalPrice = totalPrice + (product.price * product.quantity);
         shippingPrice = shippingPrice + product.shipping;
     }
@@ -88,7 +88,7 @@ const Shop = () => {
 
                     <div className="product-container">
                         {
-                            products.map(product => <Product
+                            exercise.map(product => <Product
                                 key={product.id}
                                 product={product}
                                 addToCart={addToCart}
@@ -97,7 +97,7 @@ const Shop = () => {
                     </div>
                 </div>
                 <div className="cart-container">
-                    <Cart cart={cart} price={totalPrice} quantity={productQuantity} shipping={shippingPrice} tax={tax} grandTotal={grandTotal}></Cart>
+                    <Cart cart={cart} price={totalPrice} time={time} shipping={shippingPrice} tax={tax} grandTotal={grandTotal}></Cart>
                 </div>
             </div>
         </>
