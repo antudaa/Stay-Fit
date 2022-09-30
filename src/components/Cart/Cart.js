@@ -16,13 +16,16 @@ const Cart = ({time }) => {
 
     const [breakTime, setBreakTime] = useState([0]);
 
+    useEffect(() => {
+        let storedTime = getSetTime();
+        setBreakTime(storedTime);
+
+    }, [breakTime]);
+
     const newTime = data => {
         setBreakTime(data);
         addToDb(data);
     }
-
-    const exerciseBreakTime = getSetTime();
-    console.log(exerciseBreakTime)
 
     return (
         <div className='cart'>
@@ -65,7 +68,7 @@ const Cart = ({time }) => {
                 </div>
                 <div className='flex-exercise'>
                     <h4>Break Time : </h4>
-                    <h6>{exerciseBreakTime}<small>sec</small></h6>
+                    <h6>{breakTime}<small>sec</small></h6>
                 </div>
             </div>
 
