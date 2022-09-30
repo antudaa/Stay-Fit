@@ -10,7 +10,7 @@ const Accordian = () => {
                             How Does React Works...
                         </button>
                     </h2>
-                    <div id="collapseOne" className="accordion-collapse collapse show" ariaLabelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
                             <strong>React is a declarative, efficient, and flexible JavaScript library</strong> for building user interfaces. It lets you compose complex UIs from small and isolated pieces of code called “components”. React has a few different kinds of components, but we'll start with React.Component subclasses: class ShoppingList extends React.
                         </div>
