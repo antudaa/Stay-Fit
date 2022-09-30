@@ -55,36 +55,24 @@ const Shop = () => {
             exist.quantity = exist.id;
             newCart = [...rest, exist];
         }
-        console.log(setTime());
+        
         setCart(newCart);
         addToDb(selectedProduct);
-        
-
-
-    }
-
     
+    }
 
     // Finding The Infos.
 
     let totalTime = 0;
-    for (const time of cart) {
-        console.log(cart);
-        totalTime = totalTime + time.time;
+    // for (const time of cart) {
+    //     console.log(cart);
+    //     totalTime = totalTime + time.time;
         
-    }    
+    // }
 
-
-    let totalPrice = 0;
-    let shippingPrice = 0;
-    let productQuantity = 0;
-    for(const product of cart){
-        productQuantity = productQuantity + product.quantity;
-        totalPrice = totalPrice + (product.price * product.quantity);
-        shippingPrice = shippingPrice + product.shipping;
-    }
-    let tax = (totalPrice * 0.1).toFixed(2);
-    let grandTotal = totalPrice + shippingPrice + parseFloat(tax);
+    cart.forEach(item => {
+        totalTime = totalTime + item.time;
+    })
 
 
     return (
